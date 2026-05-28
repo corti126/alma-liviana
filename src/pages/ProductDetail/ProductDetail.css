@@ -1,0 +1,87 @@
+.pdp { padding: var(--space-7) 0 var(--space-9); }
+.pdp__crumbs {
+  display: flex;
+  gap: var(--space-2);
+  font-size: 0.8rem;
+  color: var(--color-text-soft);
+  margin-bottom: var(--space-6);
+  letter-spacing: 0.04em;
+}
+.pdp__crumbs a:hover { color: var(--color-gold); }
+
+.pdp__main {
+  display: grid;
+  gap: var(--space-7);
+  grid-template-columns: 1fr;
+}
+.pdp__gallery { display: flex; flex-direction: column; gap: var(--space-3); }
+.pdp__photo {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-cream);
+}
+.pdp__photo img { width: 100%; height: 100%; object-fit: cover; }
+.pdp__thumbs { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-3); }
+.pdp__thumb {
+  aspect-ratio: 1;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-cream);
+  cursor: pointer;
+  border: 1px solid var(--color-border-soft);
+  transition: border-color var(--t-fast);
+}
+.pdp__thumb:hover { border-color: var(--color-gold); }
+.pdp__thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.pdp__title { margin-top: var(--space-3); }
+.pdp__price {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--color-gold);
+  margin-bottom: var(--space-5);
+}
+.pdp__desc { color: var(--color-text-soft); font-size: 1.02rem; }
+.pdp__stock { font-size: 0.85rem; color: var(--color-text-soft); margin: var(--space-4) 0 var(--space-5); }
+.pdp__stock--out { color: #b35a4d; }
+
+.pdp__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  align-items: center;
+}
+.pdp__qty {
+  display: inline-flex;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+.pdp__qty button {
+  width: 44px; height: 44px;
+  color: var(--color-text);
+  transition: background var(--t-fast);
+}
+.pdp__qty button:hover { background: var(--color-cream); color: var(--color-gold); }
+.pdp__qty span {
+  min-width: 44px; display: grid; place-items: center;
+}
+
+.pdp__meta {
+  list-style: none;
+  padding: var(--space-5) 0 0;
+  margin: var(--space-6) 0 0;
+  border-top: 1px solid var(--color-border-soft);
+  display: grid; gap: var(--space-2);
+  color: var(--color-text-soft);
+  font-size: 0.9rem;
+}
+.pdp__meta li::before { content: '◦ '; color: var(--color-gold); }
+
+.pdp__related { margin-top: var(--space-9); }
+
+@media (min-width: 900px) {
+  .pdp__main { grid-template-columns: 1.1fr 1fr; gap: var(--space-9); }
+}

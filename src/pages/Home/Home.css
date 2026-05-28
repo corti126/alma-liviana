@@ -1,0 +1,84 @@
+.home__cta-row {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-7);
+}
+
+.home__editorial { background: var(--color-bg-alt); }
+.home__editorial-grid {
+  display: grid;
+  gap: var(--space-7);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.home__editorial-copy p { color: var(--color-text-soft); max-width: 440px; }
+.home__editorial-images {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 180px;
+  gap: var(--space-3);
+}
+.home__editorial-img {
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-md);
+}
+.home__editorial-img--0 { grid-row: span 2; }
+.home__editorial-img--3 { grid-row: span 2; }
+
+@media (min-width: 900px) {
+  .home__editorial-grid { grid-template-columns: 1fr 1.2fr; gap: var(--space-9); }
+  .home__editorial-images { grid-auto-rows: 220px; }
+}
+
+.home__about-inner {
+  display: grid;
+  gap: var(--space-7);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+.home__about-copy p { color: var(--color-text-soft); }
+.home__about-frame {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4/5;
+  background: var(--color-cream);
+}
+.home__about-frame img { width: 100%; height: 100%; object-fit: cover; }
+
+@media (min-width: 900px) {
+  .home__about-inner { grid-template-columns: 1.1fr 1fr; gap: var(--space-9); }
+}
+
+.home__testimonials { background: var(--color-cream); }
+.home__testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-5);
+}
+.home__quote {
+  background: var(--color-surface);
+  margin: 0;
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-soft);
+}
+.home__quote p {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  color: var(--color-text-strong);
+  font-style: italic;
+  line-height: 1.45;
+}
+.home__quote cite { color: var(--color-text-soft); font-style: normal; font-size: 0.85rem; }
+
+@media (min-width: 768px) {
+  .home__testimonials-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.home__cta-inner {
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.home__cta-inner p { color: var(--color-text-soft); margin-bottom: var(--space-6); }

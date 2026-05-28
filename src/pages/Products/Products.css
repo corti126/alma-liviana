@@ -1,0 +1,12 @@
+.products-page { padding: var(--space-8) 0 var(--space-9); }
+.products-page__toolbar {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-7);
+}
+@media (min-width: 768px) {
+  .products-page__toolbar {
+    grid-template-columns: 320px 1fr;
+    align-items: center;
+  }
+}

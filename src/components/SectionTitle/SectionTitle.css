@@ -1,0 +1,15 @@
+.section-title {
+  margin-bottom: var(--space-7);
+  max-width: 640px;
+}
+.section-title--center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.section-title h2 { margin-top: var(--space-3); }
+.section-title__subtitle {
+  color: var(--color-text-soft);
+  font-size: 1.05rem;
+  margin: 0;
+}

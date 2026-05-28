@@ -1,0 +1,13 @@
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-bg-alt);
+}
+.admin-layout__content {
+  flex: 1;
+  padding: var(--space-6);
+  overflow-x: auto;
+}
+@media (min-width: 768px) {
+  .admin-layout__content { padding: var(--space-7); }
+}
