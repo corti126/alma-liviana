@@ -1,68 +1,62 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { sendEmailVerification } from 'firebase/auth';
+import { 
+  loginWithEmail, 
+  registerWithEmail, 
+  logout as firebaseLogout, 
+  subscribeToAuth 
+} from '../firebase/auth';
 
-/**
- * Frontend-only auth context, prepared for Firebase Authentication.
- * Persists the current user in localStorage so the demo flows feel real.
- * Replace the login/register/logout implementations with Firebase calls
- * inside src/firebase/auth.js when wiring real credentials.
- */
 const AuthContext = createContext(null);
-const STORAGE_KEY = 'alma-liviana-user';
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(() => {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : null;
-    } catch {
-      return null;
-    }
-  });
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user) localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-    else localStorage.removeItem(STORAGE_KEY);
-  }, [user]);
+    const unsubscribe = subscribeToAuth((currentUser) => {
+      // Firebase nos devuelve el objeto de usuario actualizado
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return unsubscribe;
+  }, []);
 
-  // Demo login. Any email containing "admin" gets admin role.
-  const login = async ({ email }) => {
-    setLoading(true);
-    await new Promise((r) => setTimeout(r, 400));
-    const role = /admin|owner/i.test(email) ? 'admin' : 'customer';
-    const fake = {
-      uid: 'demo-' + Math.random().toString(36).slice(2, 8),
-      email,
-      name: email.split('@')[0],
-      role,
-    };
-    setUser(fake);
-    setLoading(false);
-    return fake;
+  const login = async ({ email, password }) => {
+    return await loginWithEmail(email, password);
   };
 
-  const register = async ({ name, email }) => {
-    setLoading(true);
-    await new Promise((r) => setTimeout(r, 400));
-    const fake = {
-      uid: 'demo-' + Math.random().toString(36).slice(2, 8),
-      email,
-      name,
-      role: 'customer',
-    };
-    setUser(fake);
-    setLoading(false);
-    return fake;
+const register = async ({ email, password }) => {
+  console.log("Intentando registrar a:", email);
+  try {
+    const userCredential = await registerWithEmail(email, password);
+    console.log("Firebase devolvió este usuario:", userCredential.user);
+    await sendEmailVerification(userCredential.user);
+    return userCredential.user;
+  } catch (error) {
+    console.error("Firebase falló en el registro:", error.code, error.message);
+  }
+};
+
+  const logout = async () => {
+    await firebaseLogout();
   };
 
-  const logout = () => setUser(null);
+  // Función para refrescar el estado del usuario tras verificar el correo
+  const reloadUser = async () => {
+    if (user) {
+      await user.reload(); // Sincroniza con el servidor de Firebase
+      // Actualizamos el estado local para que React re-renderice
+      setUser({ ...user }); 
+    }
+  };
 
-  const hasRole = (roles = []) => !!user && roles.includes(user.role);
+  const hasRole = (roles = []) => {
+    return !!user;
+  };
 
   return (
-    <AuthContext.Provider
-      value={{ user, loading, login, register, logout, hasRole }}
-    >
+    <AuthContext.Provider value={{ user, loading, login, register, logout, hasRole, reloadUser }}>
       {children}
     </AuthContext.Provider>
   );

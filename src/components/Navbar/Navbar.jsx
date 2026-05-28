@@ -30,12 +30,21 @@ export default function Navbar() {
 
         <div className="navbar__actions">
           {user ? (
-            <button className="navbar__action" onClick={logout} title="Cerrar sesión">
-              Hola, {user.name}
-            </button>
+            <div className="navbar__user-area">
+              {/* Saludo solo informativo */}
+              <span className="navbar__greeting">
+                Hola, {user.displayName || user.email?.split('@')[0]}
+              </span>
+              
+              {/* Botón de salir separado */}
+              <button className="navbar__action" onClick={logout} title="Cerrar sesión">
+                Salir
+              </button>
+            </div>
           ) : (
             <Link to="/login" className="navbar__action">Ingresar</Link>
           )}
+
           <Link to="/cart" className="navbar__cart" aria-label="Carrito">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
               <path d="M3 4h2l2.5 12h11L21 7H6" strokeLinecap="round" strokeLinejoin="round"/>
@@ -44,6 +53,7 @@ export default function Navbar() {
             </svg>
             {count > 0 && <span className="navbar__cart-count">{count}</span>}
           </Link>
+          
           <button
             className={`navbar__burger ${open ? 'is-open' : ''}`}
             onClick={() => setOpen((o) => !o)}
