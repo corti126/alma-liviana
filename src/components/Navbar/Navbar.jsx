@@ -33,7 +33,11 @@ export default function Navbar() {
     <header className="navbar">
       <div className="navbar__inner container">
         <Link to="/" className="navbar__brand" onClick={close}>
-          <span className="navbar__brand-mark">A·L</span>
+          <img
+            src="/favicon-96x96.png"
+            alt="Alma Liviana"
+            className="navbar__brand-mark"
+          />
           <span className="navbar__brand-name">Alma Liviana</span>
         </Link>
 
@@ -74,9 +78,9 @@ export default function Navbar() {
           )}
           <Link to="/cart" className="navbar__cart" aria-label="Carrito">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path d="M3 4h2l2.5 12h11L21 7H6" strokeLinecap="round" strokeLinejoin="round"/>
-              <circle cx="9" cy="20" r="1.4"/>
-              <circle cx="18" cy="20" r="1.4"/>
+              <path d="M3 4h2l2.5 12h11L21 7H6" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="9" cy="20" r="1.4" />
+              <circle cx="18" cy="20" r="1.4" />
             </svg>
             {count > 0 && <span className="navbar__cart-count">{count}</span>}
           </Link>

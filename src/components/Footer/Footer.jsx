@@ -7,7 +7,11 @@ export default function Footer() {
     <footer className="footer">
       <div className="container footer__inner">
         <div className="footer__brand">
-          <div className="footer__mark">A·L</div>
+          <img
+            src="/favicon-96x96.png"
+            alt="Alma Liviana"
+            className="navbar__brand-mark"
+          />
           <h3 className="footer__title">Alma Liviana</h3>
           <p className="footer__tag">Moda boutique, hecha con calma.</p>
         </div>

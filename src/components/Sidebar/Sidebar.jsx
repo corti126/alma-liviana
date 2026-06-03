@@ -19,7 +19,11 @@ export default function Sidebar() {
     <aside className="sidebar">
       <div className="sidebar__brand">
         <Link to="/" className="navbar__brand" onClick={close}>
-          <span className="sidebar__mark">A·L</span>
+          <img
+            src="/favicon-96x96.png"
+            alt="Alma Liviana"
+            className="navbar__brand-mark"
+          />
           <div>
             <div className="sidebar__title">Alma Liviana</div>
             <div className="sidebar__sub">Panel de administración</div>

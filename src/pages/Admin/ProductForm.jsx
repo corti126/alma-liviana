@@ -17,7 +17,7 @@ const CATEGORIES = ['Simples', "Oversized", "Con diseño"];
 const emptyForm = {
   name: '',
   description: '',
-  category: 't-shirts',
+  category: '',
   price: 0,
   image: '',
   featured: false,
