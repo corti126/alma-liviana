@@ -10,15 +10,22 @@ export default function CartItem({ item, onUpdate, onRemove }) {
       </Link>
       <div className="cart-item__body">
         <Link to={`/products/${item.id}`} className="cart-item__name">{item.name}</Link>
+        {item.size && <span className="cart-item__size">Talle: {item.size}</span>}
         <span className="cart-item__price">{formatPrice(item.price)}</span>
 
         <div className="cart-item__controls">
           <div className="qty">
-            <button onClick={() => onUpdate(item.id, item.quantity - 1)} aria-label="Disminuir">−</button>
+            <button onClick={() => onUpdate(item.lineId, item.quantity - 1)} aria-label="Disminuir">−</button>
             <span>{item.quantity}</span>
-            <button onClick={() => onUpdate(item.id, item.quantity + 1)} aria-label="Aumentar">+</button>
+            <button
+              onClick={() => onUpdate(item.lineId, item.quantity + 1)}
+              aria-label="Aumentar"
+              disabled={item.maxStock != null && item.quantity >= item.maxStock}
+            >
+              +
+            </button>
           </div>
-          <button className="cart-item__remove" onClick={() => onRemove(item.id)}>
+          <button className="cart-item__remove" onClick={() => onRemove(item.lineId)}>
             Quitar
           </button>
         </div>

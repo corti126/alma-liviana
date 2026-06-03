@@ -1,20 +1,64 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import products, { getById } from '../../data/products.js';
+import { getProduct, listProducts } from '../../firebase/products.js';
 import ProductGrid from '../../components/ProductGrid/ProductGrid.jsx';
 import SectionTitle from '../../components/SectionTitle/SectionTitle.jsx';
 import Button from '../../components/Button/Button.jsx';
 import EmptyState from '../../components/EmptyState/EmptyState.jsx';
+import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner.jsx';
 import { useCart } from '../../context/CartContext.jsx';
 import { formatPrice } from '../../utils/format.js';
 import './ProductDetail.css';
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const product = getById(id);
   const { addItem } = useCart();
+
+  const [product, setProduct] = useState(null);
+  const [related, setRelated] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const [size, setSize] = useState('');
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
+  const [sizeError, setSizeError] = useState(false);
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setProduct(null);
+    setSize('');
+    setQty(1);
+    (async () => {
+      try {
+        const [p, all] = await Promise.all([getProduct(id), listProducts()]);
+        if (!active) return;
+        setProduct(p);
+        if (p) {
+          setRelated(
+            all
+              .filter((x) => x.id !== p.id && x.active && x.category === p.category)
+              .slice(0, 4)
+          );
+        }
+      } catch {
+        if (active) setProduct(null);
+      } finally {
+        if (active) setLoading(false);
+      }
+    })();
+    return () => {
+      active = false;
+    };
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="container" style={{ padding: '6rem 0', display: 'grid', placeItems: 'center' }}>
+        <LoadingSpinner />
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -28,15 +72,32 @@ export default function ProductDetail() {
     );
   }
 
-  const related = products
-    .filter((p) => p.id !== product.id && p.category === product.category)
-    .slice(0, 4);
+  const sizes = product.sizes || [];
+  const sizesStock = product.sizesStock || {};
+  const stockFor = (s) => Number(sizesStock[s] || 0);
+  const totalStock = sizes.reduce((sum, s) => sum + stockFor(s), 0);
+  const selectedStock = size ? stockFor(size) : 0;
+  const soldOut = sizes.length > 0 && totalStock === 0;
+
+  const handleSelectSize = (s) => {
+    if (stockFor(s) <= 0) return;
+    setSize(s);
+    setSizeError(false);
+    setQty(1);
+  };
 
   const handleAdd = () => {
-    addItem(product, qty);
+    if (sizes.length > 0 && !size) {
+      setSizeError(true);
+      return;
+    }
+    if (size && selectedStock <= 0) return;
+    addItem(product, { size: size || null, quantity: qty, maxStock: size ? selectedStock : Infinity });
     setAdded(true);
     setTimeout(() => setAdded(false), 1800);
   };
+
+  const maxQty = size ? selectedStock : 99;
 
   return (
     <div className="pdp">
@@ -54,13 +115,6 @@ export default function ProductDetail() {
             <div className="pdp__photo">
               <img src={product.image} alt={product.name} />
             </div>
-            <div className="pdp__thumbs">
-              {[product.image, product.image, product.image].map((src, i) => (
-                <div key={i} className="pdp__thumb">
-                  <img src={src} alt="" />
-                </div>
-              ))}
-            </div>
           </div>
 
           <div className="pdp__info">
@@ -69,11 +123,41 @@ export default function ProductDetail() {
             <div className="pdp__price">{formatPrice(product.price)}</div>
             <p className="pdp__desc">{product.description}</p>
 
+            {sizes.length > 0 && (
+              <div className="pdp__sizes">
+                <div className="pdp__sizes-head">
+                  <span>Talle</span>
+                  {size && <span className="pdp__sizes-stock">{selectedStock} disponibles</span>}
+                </div>
+                <div className="pdp__sizes-grid">
+                  {sizes.map((s) => {
+                    const out = stockFor(s) <= 0;
+                    return (
+                      <button
+                        key={s}
+                        type="button"
+                        className={`pdp__size ${size === s ? 'is-active' : ''} ${out ? 'is-out' : ''}`}
+                        onClick={() => handleSelectSize(s)}
+                        disabled={out}
+                        title={out ? 'Sin stock' : `Talle ${s}`}
+                      >
+                        {s}
+                        {out && <span className="pdp__size-out">Sin stock</span>}
+                      </button>
+                    );
+                  })}
+                </div>
+                {sizeError && (
+                  <p className="pdp__size-error">Por favor elige un talle.</p>
+                )}
+              </div>
+            )}
+
             <div className="pdp__stock">
-              {product.stock > 0 ? (
-                <span>Disponible · {product.stock} en stock</span>
-              ) : (
+              {soldOut ? (
                 <span className="pdp__stock--out">Agotada por ahora</span>
+              ) : (
+                <span>Disponible</span>
               )}
             </div>
 
@@ -81,13 +165,19 @@ export default function ProductDetail() {
               <div className="pdp__qty">
                 <button onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Disminuir">−</button>
                 <span>{qty}</span>
-                <button onClick={() => setQty((q) => q + 1)} aria-label="Aumentar">+</button>
+                <button
+                  onClick={() => setQty((q) => Math.min(maxQty, q + 1))}
+                  aria-label="Aumentar"
+                  disabled={qty >= maxQty}
+                >
+                  +
+                </button>
               </div>
               <Button
                 variant="primary"
                 size="lg"
                 onClick={handleAdd}
-                disabled={product.stock === 0}
+                disabled={soldOut || (!!size && selectedStock <= 0)}
               >
                 {added ? '✓ Añadido al carrito' : 'Añadir al carrito'}
               </Button>

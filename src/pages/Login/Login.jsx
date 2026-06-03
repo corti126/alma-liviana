@@ -5,8 +5,23 @@ import Button from '../../components/Button/Button.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
 import './Auth.css';
 
+const friendlyError = (code) => {
+  switch (code) {
+    case 'auth/invalid-credential':
+    case 'auth/wrong-password':
+    case 'auth/user-not-found':
+      return 'Correo o contraseña incorrectos.';
+    case 'auth/invalid-email':
+      return 'El correo no es válido.';
+    case 'auth/too-many-requests':
+      return 'Demasiados intentos. Inténtalo más tarde.';
+    default:
+      return 'No pudimos iniciar tu sesión. Inténtalo de nuevo.';
+  }
+};
+
 export default function Login() {
-  const { login, loading } = useAuth();
+  const { login, submitting } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [form, setForm] = useState({ email: '', password: '' });
@@ -19,10 +34,12 @@ export default function Login() {
     setError(null);
     try {
       const user = await login(form);
-      const from = location.state?.from || (user.role === 'admin' ? '/admin' : '/');
+      const from =
+        location.state?.from ||
+        (user.role === 'admin' || user.role === 'owner' ? '/admin' : '/');
       navigate(from, { replace: true });
     } catch (err) {
-      setError('No pudimos iniciar tu sesión. Inténtalo de nuevo.');
+      setError(friendlyError(err?.code));
     }
   };
 
@@ -36,15 +53,13 @@ export default function Login() {
           <Input label="Correo" name="email" type="email" value={form.email} onChange={onChange} required placeholder="tu@correo.com" />
           <Input label="Contraseña" name="password" type="password" value={form.password} onChange={onChange} required placeholder="••••••••" />
           {error && <p className="auth-page__error">{error}</p>}
-          <Button type="submit" variant="primary" size="lg" className="btn--block" disabled={loading}>
-            {loading ? 'Ingresando…' : 'Ingresar'}
+          <Button type="submit" variant="primary" size="lg" className="btn--block" disabled={submitting}>
+            {submitting ? 'Ingresando…' : 'Ingresar'}
           </Button>
         </form>
         <div className="auth-page__links">
-          <a href="#">¿Olvidaste tu contraseña?</a>
           <span>¿Eres nueva? <Link to="/register">Crea tu cuenta</Link></span>
         </div>
-        <p className="auth-page__hint">Tip: usa un correo con "admin" para acceder al panel.</p>
       </div>
     </div>
   );

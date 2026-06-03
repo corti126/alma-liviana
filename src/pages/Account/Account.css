@@ -1,0 +1,39 @@
+.account-page {
+  padding: calc(var(--navbar-h) + var(--space-7, 2.5rem)) 0 var(--space-9, 5rem);
+}
+.account-page__inner {
+  max-width: 640px;
+}
+.account-card {
+  margin-top: var(--space-6, 2rem);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-lg, 18px);
+  overflow: hidden;
+}
+.account-card__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-4, 1rem);
+  padding: var(--space-5, 1.1rem) var(--space-6, 1.5rem);
+  border-bottom: 1px solid var(--color-border-soft);
+}
+.account-card__row:last-child { border-bottom: none; }
+.account-card__label {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-soft, #8a7d72);
+}
+.account-card__value {
+  font-size: 0.95rem;
+  color: var(--color-text-strong);
+  text-transform: capitalize;
+}
+.account-page__actions {
+  margin-top: var(--space-6, 2rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3, 0.75rem);
+}

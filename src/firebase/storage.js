@@ -1,15 +1,19 @@
-// Firebase Storage placeholder for product image uploads.
-//
-// import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-// import { storage } from './config.js';
-//
-// export const uploadProductImage = async (file, productId) => {
-//   const path = `products/${productId}/${file.name}`;
-//   const r = ref(storage, path);
-//   await uploadBytes(r, file);
-//   return getDownloadURL(r);
-// };
+// Firebase Storage service for product image uploads (Firebase v9 modular).
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
+import { storage } from './config.js';
 
-export const uploadProductImage = async () => {
-  throw new Error('Firebase storage not yet connected.');
+export const uploadProductImage = async (file, productId = 'misc') => {
+  const safeName = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
+  const path = `products/${productId}/${safeName}`;
+  const storageRef = ref(storage, path);
+  await uploadBytes(storageRef, file);
+  return getDownloadURL(storageRef);
+};
+
+export const deleteProductImage = async (path) => {
+  try {
+    await deleteObject(ref(storage, path));
+  } catch {
+    // Ignore missing files.
+  }
 };

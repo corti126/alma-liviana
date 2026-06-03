@@ -3,6 +3,8 @@ import { createContext, useContext, useEffect, useMemo, useState } from 'react';
 const CartContext = createContext(null);
 const STORAGE_KEY = 'alma-liviana-cart';
 
+const lineIdFor = (id, size) => `${id}__${size || 'unica'}`;
+
 export function CartProvider({ children }) {
   const [items, setItems] = useState(() => {
     try {
@@ -17,34 +19,44 @@ export function CartProvider({ children }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
   }, [items]);
 
-  const addItem = (product, quantity = 1) => {
+  // addItem(product, { size, quantity, maxStock })
+  const addItem = (product, { size, quantity = 1, maxStock = Infinity } = {}) => {
+    const lineId = lineIdFor(product.id, size);
     setItems((prev) => {
-      const existing = prev.find((i) => i.id === product.id);
+      const existing = prev.find((i) => i.lineId === lineId);
       if (existing) {
+        const nextQty = Math.min(existing.quantity + quantity, maxStock);
         return prev.map((i) =>
-          i.id === product.id ? { ...i, quantity: i.quantity + quantity } : i
+          i.lineId === lineId ? { ...i, quantity: nextQty, maxStock } : i
         );
       }
       return [
         ...prev,
         {
+          lineId,
           id: product.id,
           name: product.name,
           price: product.price,
           image: product.image,
-          quantity,
+          size: size || null,
+          quantity: Math.min(quantity, maxStock),
+          maxStock: Number.isFinite(maxStock) ? maxStock : null,
         },
       ];
     });
   };
 
-  const removeItem = (id) =>
-    setItems((prev) => prev.filter((i) => i.id !== id));
+  const removeItem = (lineId) =>
+    setItems((prev) => prev.filter((i) => i.lineId !== lineId));
 
-  const updateQuantity = (id, quantity) => {
-    if (quantity <= 0) return removeItem(id);
+  const updateQuantity = (lineId, quantity) => {
+    if (quantity <= 0) return removeItem(lineId);
     setItems((prev) =>
-      prev.map((i) => (i.id === id ? { ...i, quantity } : i))
+      prev.map((i) => {
+        if (i.lineId !== lineId) return i;
+        const cap = i.maxStock || Infinity;
+        return { ...i, quantity: Math.min(quantity, cap) };
+      })
     );
   };
 

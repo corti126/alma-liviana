@@ -1,17 +1,47 @@
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 import CartItem from '../../components/CartItem/CartItem.jsx';
 import Button from '../../components/Button/Button.jsx';
 import EmptyState from '../../components/EmptyState/EmptyState.jsx';
 import SectionTitle from '../../components/SectionTitle/SectionTitle.jsx';
+import Modal from '../../components/Modal/Modal.jsx';
 import { openWhatsappCheckout } from '../../services/whatsapp.js';
+import { createOrder } from '../../firebase/orders.js';
 import { formatPrice } from '../../utils/format.js';
 import './Cart.css';
 
 export default function Cart() {
-  const { items, updateQuantity, removeItem, total } = useCart();
+  const { items, updateQuantity, removeItem, total, clear } = useCart();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [showLogin, setShowLogin] = useState(false);
 
-  const handleCheckout = () => openWhatsappCheckout(items, total);
+  const handleCheckout = async () => {
+    if (!user) {
+      setShowLogin(true);
+      return;
+    }
+    // Best-effort: persist the order, but never block the WhatsApp flow.
+    try {
+      await createOrder({
+        userId: user.uid,
+        customerName: user.name,
+        items: items.map((i) => ({
+          id: i.id,
+          name: i.name,
+          size: i.size,
+          price: i.price,
+          quantity: i.quantity,
+        })),
+        total,
+      });
+    } catch {
+      // Firestore may not be reachable yet; continue to WhatsApp anyway.
+    }
+    openWhatsappCheckout(items, total, user.name);
+  };
 
   return (
     <div className="cart-page">
@@ -29,7 +59,7 @@ export default function Cart() {
             <div className="cart-page__items">
               {items.map((item) => (
                 <CartItem
-                  key={item.id}
+                  key={item.lineId}
                   item={item}
                   onUpdate={updateQuantity}
                   onRemove={removeItem}
@@ -58,6 +88,25 @@ export default function Cart() {
           </div>
         )}
       </div>
+
+      <Modal
+        open={showLogin}
+        onClose={() => setShowLogin(false)}
+        title="Inicia sesión para continuar"
+        actions={
+          <>
+            <Button variant="ghost" onClick={() => setShowLogin(false)}>Cancelar</Button>
+            <Button
+              variant="primary"
+              onClick={() => navigate('/login', { state: { from: '/cart' } })}
+            >
+              Ir a iniciar sesión
+            </Button>
+          </>
+        }
+      >
+        Debes iniciar sesión para finalizar tu compra.
+      </Modal>
     </div>
   );
 }

@@ -7,6 +7,13 @@ import ProductDetail from './pages/ProductDetail/ProductDetail.jsx';
 import Cart from './pages/Cart/Cart.jsx';
 import Login from './pages/Login/Login.jsx';
 import Register from './pages/Register/Register.jsx';
+import Account from './pages/Account/Account.jsx';
+import Contact from './pages/Contact/Contact.jsx';
+import Faq from './pages/Faq/Faq.jsx';
+import Shipping from './pages/Info/Shipping.jsx';
+import Returns from './pages/Info/Returns.jsx';
+import Terms from './pages/Info/Terms.jsx';
+import Privacy from './pages/Info/Privacy.jsx';
 import AdminDashboard from './pages/Admin/Dashboard.jsx';
 import AdminProducts from './pages/Admin/Products.jsx';
 import AdminOrders from './pages/Admin/Orders.jsx';
@@ -24,6 +31,20 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/mi-cuenta"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/contacto" element={<Contact />} />
+        <Route path="/preguntas-frecuentes" element={<Faq />} />
+        <Route path="/envios" element={<Shipping />} />
+        <Route path="/cambios-y-devoluciones" element={<Returns />} />
+        <Route path="/terminos-y-condiciones" element={<Terms />} />
+        <Route path="/politica-de-privacidad" element={<Privacy />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
