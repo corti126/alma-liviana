@@ -12,7 +12,7 @@ import { uploadProductImage } from '../../firebase/storage.js';
 import './Admin.css';
 
 const DEFAULT_SIZES = ['S', 'M', 'L', 'XL'];
-const CATEGORIES = ['t-shirts'];
+const CATEGORIES = ['Simples', "Oversized", "Con diseño"];
 
 const emptyForm = {
   name: '',

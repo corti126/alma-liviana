@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
 import './Sidebar.css';
 
@@ -18,11 +18,13 @@ export default function Sidebar() {
   return (
     <aside className="sidebar">
       <div className="sidebar__brand">
-        <span className="sidebar__mark">A·L</span>
-        <div>
-          <div className="sidebar__title">Alma Liviana</div>
-          <div className="sidebar__sub">Panel de administración</div>
-        </div>
+        <Link to="/" className="navbar__brand" onClick={close}>
+          <span className="sidebar__mark">A·L</span>
+          <div>
+            <div className="sidebar__title">Alma Liviana</div>
+            <div className="sidebar__sub">Panel de administración</div>
+          </div>
+        </Link>
       </div>
 
       <nav className="sidebar__nav">
