@@ -31,7 +31,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  flex: 1;
 }
 .sidebar__link {
   padding: 0.7rem 1rem;
@@ -46,6 +45,34 @@
   color: var(--color-text-strong);
   font-weight: 500;
 }
+
+.sidebar__store {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-soft);
+  margin-top: auto;
+}
+.sidebar__store-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  padding: 0 1rem;
+  margin-bottom: var(--space-2);
+}
+.sidebar__store-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  color: var(--color-text);
+  transition: all var(--t-fast);
+}
+.sidebar__store-link:hover { background: var(--color-bg-alt); color: var(--color-gold); }
 
 .sidebar__footer { border-top: 1px solid var(--color-border-soft); padding-top: var(--space-4); }
 .sidebar__user { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); }
@@ -67,15 +94,24 @@
 }
 .sidebar__logout:hover { color: var(--color-gold); }
 
-@media (max-width: 768px) {
+/* On tablet/mobile the sidebar becomes an off-canvas drawer controlled by
+   AdminLayout. */
+@media (max-width: 900px) {
   .sidebar {
-    position: relative;
-    width: 100%;
-    height: auto;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: var(--space-4);
-    gap: var(--space-4);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 280px;
+    max-width: 86vw;
+    z-index: 60;
+    transform: translateX(-100%);
+    transition: transform var(--t-base, 0.25s) ease;
+    box-shadow: var(--shadow-lg, 0 20px 40px rgba(0,0,0,0.18));
+    overflow-y: auto;
   }
-  .sidebar__nav { flex-direction: row; flex-wrap: wrap; }
+  .admin-layout.is-open .sidebar {
+    transform: translateX(0);
+  }
+  .sidebar__store { margin-top: var(--space-4); }
 }

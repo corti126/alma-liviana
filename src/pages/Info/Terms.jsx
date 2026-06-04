@@ -16,7 +16,7 @@ export default function Terms() {
       <InfoSection heading="Productos y precios">
         <ul>
           <li>Las imágenes son ilustrativas; pueden existir variaciones leves de color según tu pantalla.</li>
-          <li>Los precios están expresados en pesos colombianos e incluyen los impuestos aplicables.</li>
+          <li>Los precios están expresados en pesos argentinos e incluyen los impuestos aplicables.</li>
           <li>La disponibilidad está sujeta a stock y puede cambiar sin previo aviso.</li>
         </ul>
       </InfoSection>

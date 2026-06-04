@@ -53,15 +53,13 @@ export default function Products() {
       <div className="container">
         <SectionTitle
           eyebrow="Tienda"
-          title="Camisetas Alma Liviana"
+          title="Remeras Alma Liviana"
           subtitle="Una colección breve, hecha con calma. Pensada para acompañarte cada día."
         />
 
         <div className="products-page__toolbar">
-          <SearchBar value={query} onChange={setQuery} placeholder="Buscar una camiseta…" />
-          {categories.length > 1 && (
-            <CategoryFilter categories={categories} active={category} onChange={setCategory} />
-          )}
+          <SearchBar value={query} onChange={setQuery} placeholder="Buscar una remera…" />
+          <CategoryFilter categories={categories} active={category} onChange={setCategory} />
         </div>
 
         {loading ? (

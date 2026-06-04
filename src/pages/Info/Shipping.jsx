@@ -8,28 +8,29 @@ export default function Shipping() {
     >
       <InfoSection heading="Cobertura">
         <p>
-          Realizamos envíos a toda Colombia a través de transportadoras aliadas.
-          También coordinamos entregas internacionales bajo cotización; escríbenos
-          por WhatsApp y te ayudamos con gusto.
+          Realizamos envíos a toda la Argentina a través de Correo Argentino y
+          transportadoras aliadas (Andreani, OCA). También coordinamos entregas
+          internacionales bajo cotización; escribinos por WhatsApp y te ayudamos
+          con gusto.
         </p>
       </InfoSection>
       <InfoSection heading="Tiempos de entrega">
         <ul>
-          <li>Ciudades principales: 2 a 4 días hábiles.</li>
-          <li>Poblaciones y zonas rurales: 4 a 7 días hábiles.</li>
+          <li>CABA y GBA: 2 a 4 días hábiles.</li>
+          <li>Interior del país: 4 a 7 días hábiles.</li>
           <li>Los pedidos se despachan dentro de las 48 horas siguientes a la confirmación del pago.</li>
         </ul>
       </InfoSection>
       <InfoSection heading="Costos de envío">
         <p>
-          El valor del envío se calcula según la ciudad de destino y se confirma al
-          coordinar tu pedido por WhatsApp. Para compras superiores a $200.000 el
-          envío es gratuito dentro de Colombia.
+          El valor del envío se calcula según la localidad de destino y se confirma al
+          coordinar tu pedido por WhatsApp. Para compras superiores a $80.000 el
+          envío es gratuito dentro de la Argentina.
         </p>
       </InfoSection>
       <InfoSection heading="Seguimiento">
         <p>
-          Una vez despachado tu pedido te compartiremos el número de guía por
+          Una vez despachado tu pedido te compartiremos el número de seguimiento por
           WhatsApp para que puedas seguir tu paquete en todo momento.
         </p>
       </InfoSection>

@@ -5,6 +5,7 @@ import AdminTable from '../../components/AdminTable/AdminTable.jsx';
 import Button from '../../components/Button/Button.jsx';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner.jsx';
 import { formatPrice } from '../../utils/format.js';
+import { categoryLabel } from '../../utils/categories.js';
 import './Admin.css';
 
 const totalStock = (p) =>
@@ -64,7 +65,7 @@ export default function AdminProducts() {
           <img src={r.image} alt={r.name} />
           <div>
             <div className="admin__product-name">{r.name}</div>
-            <div className="admin__product-cat">{r.category}</div>
+            <div className="admin__product-cat">{categoryLabel(r.category)}</div>
           </div>
         </div>
       ),

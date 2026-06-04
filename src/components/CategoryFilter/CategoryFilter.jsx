@@ -1,17 +1,24 @@
 import './CategoryFilter.css';
+import { categoryLabel } from '../../utils/categories.js';
 
 export default function CategoryFilter({ categories, active, onChange }) {
   return (
-    <div className="category-filter">
-      {categories.map((c) => (
-        <button
-          key={c}
-          onClick={() => onChange(c)}
-          className={`category-filter__chip ${active === c ? 'is-active' : ''}`}
+    <label className="category-filter">
+      <span className="category-filter__label">Categoría</span>
+      <span className="category-filter__select-wrap">
+        <select
+          className="category-filter__select"
+          value={active}
+          onChange={(e) => onChange(e.target.value)}
         >
-          {c}
-        </button>
-      ))}
-    </div>
+          {categories.map((c) => (
+            <option key={c} value={c}>
+              {c === 'Todas' ? 'Todos' : categoryLabel(c)}
+            </option>
+          ))}
+        </select>
+        <span className="category-filter__chevron" aria-hidden="true">▾</span>
+      </span>
+    </label>
   );
 }

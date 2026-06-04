@@ -19,7 +19,7 @@ export default function Footer() {
         <div className="footer__cols">
           <div>
             <h4>Tienda</h4>
-            <Link to="/products">Camisetas</Link>
+            <Link to="/products">Remeras</Link>
             <Link to="/cart">Carrito</Link>
             <Link to="/mi-cuenta">Mi cuenta</Link>
           </div>

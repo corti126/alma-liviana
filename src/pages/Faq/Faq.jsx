@@ -5,7 +5,7 @@ import './Faq.css';
 const faqs = [
   {
     q: '¿Cuánto tarda en llegar mi pedido?',
-    a: 'En ciudades principales entre 2 y 4 días hábiles, y en otras zonas de 4 a 7 días hábiles. Despachamos dentro de las 48 horas siguientes a la confirmación.',
+    a: 'En CABA y GBA entre 2 y 4 días hábiles, y en el interior del país de 4 a 7 días hábiles. Despachamos dentro de las 48 horas siguientes a la confirmación.',
   },
   {
     q: '¿Cómo elijo mi talla?',
@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     q: '¿Puedo hacer seguimiento a mi pedido?',
-    a: 'Claro. Una vez despachado, te compartimos el número de guía por WhatsApp para que sigas tu paquete hasta tu puerta.',
+    a: 'Claro. Una vez despachado, te compartimos el número de seguimiento por WhatsApp para que sigas tu paquete hasta tu puerta.',
   },
   {
     q: '¿Necesito una cuenta para comprar?',

@@ -169,3 +169,33 @@
   font-size: 0.82rem;
   text-transform: capitalize;
 }
+
+/* ===== Admin responsive & UX refinements ===== */
+@media (max-width: 768px) {
+  .admin__header {
+    align-items: stretch;
+    margin-bottom: var(--space-6);
+  }
+  .admin__header h1 { font-size: 1.6rem; }
+  /* The "+ Nuevo producto" link/button stretches full width on mobile. */
+  .admin__header > a,
+  .admin__header > a .btn { width: 100%; }
+
+  .admin__stats { grid-template-columns: 1fr 1fr; gap: var(--space-3); }
+  .admin__stat { padding: var(--space-4); }
+  .admin__stat-value { font-size: 1.4rem; }
+
+  .admin__form { padding: var(--space-5) var(--space-4); }
+  .admin__form-grid { gap: var(--space-5); }
+  .admin__form-actions { flex-direction: column-reverse; }
+  .admin__form-actions .btn { width: 100%; }
+
+  .admin__sizes-grid { grid-template-columns: 1fr 1fr; }
+
+  .admin__product-cell img { width: 40px; height: 40px; }
+  .admin__row-actions { gap: var(--space-1); }
+}
+
+@media (max-width: 380px) {
+  .admin__stats { grid-template-columns: 1fr; }
+}

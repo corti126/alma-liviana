@@ -9,15 +9,15 @@ import {
   updateProduct,
 } from '../../firebase/products.js';
 import { uploadProductImage } from '../../firebase/storage.js';
+import { CATEGORY_OPTIONS } from '../../utils/categories.js';
 import './Admin.css';
 
 const DEFAULT_SIZES = ['S', 'M', 'L', 'XL'];
-const CATEGORIES = ['Simples', "Oversized", "Con diseño"];
 
 const emptyForm = {
   name: '',
   description: '',
-  category: '',
+  category: CATEGORY_OPTIONS[0].value,
   price: 0,
   image: '',
   featured: false,
@@ -51,7 +51,7 @@ export default function ProductForm() {
         setForm({
           name: p.name || '',
           description: p.description || '',
-          category: p.category || 't-shirts',
+          category: p.category || CATEGORY_OPTIONS[0].value,
           price: p.price || 0,
           image: p.image || '',
           featured: !!p.featured,
@@ -168,10 +168,12 @@ export default function ProductForm() {
             <label className="field">
               <span className="field__label">Categoría</span>
               <select className="field__input" name="category" value={form.category} onChange={onChange}>
-                {CATEGORIES.map((c) => <option key={c}>{c}</option>)}
+                {CATEGORY_OPTIONS.map((c) => (
+                  <option key={c.value} value={c.value}>{c.label}</option>
+                ))}
               </select>
             </label>
-            <Input label="Precio (COP)" name="price" type="number" value={form.price} onChange={onChange} required />
+            <Input label="Precio (ARS)" name="price" type="number" value={form.price} onChange={onChange} required />
 
             <div className="admin__sizes">
               <span className="field__label">Talles y stock</span>

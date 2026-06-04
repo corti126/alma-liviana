@@ -7,6 +7,7 @@ import ProductDetail from './pages/ProductDetail/ProductDetail.jsx';
 import Cart from './pages/Cart/Cart.jsx';
 import Login from './pages/Login/Login.jsx';
 import Register from './pages/Register/Register.jsx';
+import ForgotPassword from './pages/ForgotPassword/ForgotPassword.jsx';
 import Account from './pages/Account/Account.jsx';
 import Contact from './pages/Contact/Contact.jsx';
 import Faq from './pages/Faq/Faq.jsx';
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/recuperar-contrasena" element={<ForgotPassword />} />
         <Route
           path="/mi-cuenta"
           element={

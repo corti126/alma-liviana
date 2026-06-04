@@ -24,6 +24,14 @@
   font-size: 0.85rem;
   margin-bottom: var(--space-4);
 }
+.auth-page__success {
+  background: #e7f0e7;
+  color: #4a7a4a;
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  font-size: 0.88rem;
+  margin-bottom: var(--space-4);
+}
 .auth-page__links {
   display: flex;
   justify-content: space-between;

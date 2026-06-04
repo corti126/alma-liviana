@@ -18,7 +18,9 @@ export default function AdminTable({ columns, rows, empty = 'Sin registros.' }) 
           {rows.map((row, idx) => (
             <tr key={row.id || idx}>
               {columns.map((c) => (
-                <td key={c.key}>{c.render ? c.render(row) : row[c.key]}</td>
+                <td key={c.key} data-label={c.label}>
+                  {c.render ? c.render(row) : row[c.key]}
+                </td>
               ))}
             </tr>
           ))}

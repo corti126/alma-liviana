@@ -58,7 +58,8 @@ export default function Login() {
           </Button>
         </form>
         <div className="auth-page__links">
-          <span>¿Eres nueva? <Link to="/register">Crea tu cuenta</Link></span>
+          <Link to="/recuperar-contrasena">¿Olvidaste tu contraseña?</Link>
+          <span>¿Sos nueva? <Link to="/register">Creá tu cuenta</Link></span>
         </div>
       </div>
     </div>

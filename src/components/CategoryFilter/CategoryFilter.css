@@ -1,21 +1,68 @@
 .category-filter {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
 }
-.category-filter__chip {
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-pill);
+
+.category-filter__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-soft);
+  white-space: nowrap;
+}
+
+.category-filter__select-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.category-filter__select {
+  appearance: none;
+  -webkit-appearance: none;
+  /* Cambio principal: width auto para ajustarse al contenido */
+  width: auto;
+  /* Opcional: un mínimo para que no se vea demasiado estrecho */
+  min-width: 120px; 
+  padding: 0.7rem 2.4rem 0.7rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.92rem;
+  color: var(--color-text-strong);
   background: var(--color-surface);
-  border: 1px solid var(--color-border);
-  font-size: 0.8rem;
-  letter-spacing: 0.05em;
-  color: var(--color-text);
-  transition: all var(--t-fast);
+  border: 1px solid var(--color-border-soft);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: border-color var(--t-fast);
 }
-.category-filter__chip:hover { border-color: var(--color-gold); color: var(--color-gold); }
-.category-filter__chip.is-active {
-  background: var(--color-gold);
+
+.category-filter__select:hover,
+.category-filter__select:focus {
   border-color: var(--color-gold);
-  color: #fff;
+  outline: none;
+}
+
+.category-filter__chevron {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--color-text-soft);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 767px) {
+  .category-filter {
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+  .category-filter__select-wrap { 
+    width: 100%; 
+  }
+  .category-filter__select {
+    /* En móvil, volvemos a forzar el 100% para mejor usabilidad */
+    width: 100%;
+  }
 }

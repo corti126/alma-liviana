@@ -8,13 +8,16 @@ const links = [
   { to: '/admin/orders', label: 'Pedidos' },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ onNavigate }) {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const handleLogout = () => {
-    logout();
+
+  const handleLogout = async () => {
+    await logout();
+    onNavigate?.();
     navigate('/');
   };
+
   return (
     <aside className="sidebar">
       <div className="sidebar__brand">
@@ -37,6 +40,7 @@ export default function Sidebar() {
             key={l.to}
             to={l.to}
             end={l.end}
+            onClick={onNavigate}
             className={({ isActive }) =>
               `sidebar__link ${isActive ? 'is-active' : ''}`
             }
@@ -45,6 +49,16 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
+
+      <div className="sidebar__store">
+        <span className="sidebar__store-label">Tienda</span>
+        <Link to="/" onClick={onNavigate} className="sidebar__store-link">
+          <span aria-hidden="true">⌂</span> Ir al inicio
+        </Link>
+        <Link to="/products" onClick={onNavigate} className="sidebar__store-link">
+          <span aria-hidden="true">←</span> Volver a la tienda
+        </Link>
+      </div>
 
       <div className="sidebar__footer">
         <div className="sidebar__user">

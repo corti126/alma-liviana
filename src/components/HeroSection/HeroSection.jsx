@@ -13,7 +13,7 @@ export default function HeroSection() {
             <em>moverse con alma.</em>
           </h1>
           <p>
-            Camisetas hechas a mano en algodón suave, pensadas para mujeres que
+            Remeras hechas a mano en algodón suave, pensadas para mujeres que
             visten lo esencial con elegancia. Una colección breve, lenta y atemporal.
           </p>
           <div className="hero__cta">

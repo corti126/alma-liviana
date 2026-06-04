@@ -10,7 +10,7 @@ const STATUSES = ['pendiente', 'pagado', 'preparando', 'enviado', 'entregado'];
 const formatDate = (createdAt) => {
   if (!createdAt) return '—';
   const date = createdAt.toDate ? createdAt.toDate() : new Date(createdAt);
-  return date.toLocaleDateString('es-CO', { day: '2-digit', month: 'short' });
+  return date.toLocaleDateString('es-AR', { day: '2-digit', month: 'short' });
 };
 
 export default function AdminOrders() {

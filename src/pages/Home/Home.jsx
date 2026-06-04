@@ -10,16 +10,16 @@ import './Home.css';
 
 const testimonials = [
   {
-    quote: '“La tela es tan suave que ya no quiero usar otra cosa. Es mi camiseta favorita del armario.”',
-    author: 'María José, Bogotá',
+    quote: '“La tela es tan suave que ya no quiero usar otra cosa. Es mi remera favorita del placard.”',
+    author: 'Martina, Buenos Aires',
   },
   {
-    quote: '“Una marca con alma. Se nota el cuidado en cada detalle, desde la prenda hasta el empaque.”',
-    author: 'Lucía, Medellín',
+    quote: '“Una marca con alma. Se nota el cuidado en cada detalle, desde la prenda hasta el packaging.”',
+    author: 'Camila, Córdoba',
   },
   {
     quote: '“Elegante, liviana y atemporal. Justo lo que estaba buscando.”',
-    author: 'Andrea, Cali',
+    author: 'Julieta, Rosario',
   },
 ];
 
@@ -74,7 +74,7 @@ export default function Home() {
         <div className="container">
           <SectionTitle
             eyebrow="Nuestras favoritas"
-            title="Camisetas pensadas con calma"
+            title="Remeras pensadas con calma"
             subtitle="Una pequeña selección de las piezas más queridas de la temporada."
           />
           {loading ? (
@@ -101,7 +101,7 @@ export default function Home() {
               <span className="eyebrow">Editorial</span>
               <h2>Un guardarropa que respira.</h2>
               <p>
-                Diseñamos pocas piezas, pensadas con detalle. Cada camiseta nace
+                Diseñamos pocas piezas, pensadas con detalle. Cada remera nace
                 de telas suaves, costuras delicadas y un compromiso con lo simple.
               </p>
               <Link to="/products"><Button variant="link">Explorar colección</Button></Link>
@@ -122,13 +122,13 @@ export default function Home() {
             <h2>Nacimos de un deseo simple: vestir con calma.</h2>
             <p>
               Alma Liviana comenzó en un pequeño taller, entre rollos de algodón y
-              tardes de luz tibia. Queríamos una camiseta que se sintiera como un
+              tardes de luz tibia. Queríamos una remera que se sintiera como un
               abrazo: suave, honesta y sin pretensiones. No encontramos esa prenda,
               así que decidimos crearla nosotras.
             </p>
             <p>
               Hoy seguimos fieles a esa idea. Trabajamos en pequeñas tandas, cuidando
-              cada costura, cada tono y cada detalle del empaque. Creemos en la moda
+              cada costura, cada tono y cada detalle del packaging. Creemos en la moda
               lenta, en lo esencial bien hecho y en las prendas que se quedan contigo
               durante años, no solo una temporada.
             </p>
@@ -182,7 +182,7 @@ export default function Home() {
       <section className="section home__cta">
         <div className="container home__cta-inner">
           <h2>Hecho con calma. Vestido con alma.</h2>
-          <p>Descubre la colección de camisetas Alma Liviana y encuentra tu favorita.</p>
+          <p>Descubrí la colección de remeras Alma Liviana y encontrá tu favorita.</p>
           <Link to="/products"><Button variant="primary" size="lg">Ir a la tienda</Button></Link>
         </div>
       </section>

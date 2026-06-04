@@ -8,6 +8,7 @@ import EmptyState from '../../components/EmptyState/EmptyState.jsx';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner.jsx';
 import { useCart } from '../../context/CartContext.jsx';
 import { formatPrice } from '../../utils/format.js';
+import { categoryLabel } from '../../utils/categories.js';
 import './ProductDetail.css';
 
 export default function ProductDetail() {
@@ -118,7 +119,7 @@ export default function ProductDetail() {
           </div>
 
           <div className="pdp__info">
-            <span className="eyebrow">{product.category}</span>
+            <span className="eyebrow">{categoryLabel(product.category)}</span>
             <h1 className="pdp__title">{product.name}</h1>
             <div className="pdp__price">{formatPrice(product.price)}</div>
             <p className="pdp__desc">{product.description}</p>

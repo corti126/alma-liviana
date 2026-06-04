@@ -51,7 +51,7 @@ export default function Cart() {
         {items.length === 0 ? (
           <EmptyState
             title="Tu carrito está vacío"
-            description="Descubre nuestra colección de camisetas y elige tus favoritas."
+            description="Descubre nuestra colección de remeras y elige tus favoritas."
             action={<Link to="/products"><Button variant="primary">Ir a la tienda</Button></Link>}
           />
         ) : (

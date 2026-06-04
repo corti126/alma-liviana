@@ -6,7 +6,7 @@ import { BUSINESS_PHONE } from '../../services/whatsapp.js';
 import './Contact.css';
 
 const INSTAGRAM = 'almaliviana';
-const EMAIL = 'hola@almaliviana.co';
+const EMAIL = 'hola@almaliviana.com.ar';
 
 const validate = (form) => {
   const errors = {};
