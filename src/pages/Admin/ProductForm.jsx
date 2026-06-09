@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import Input from '../../components/Input/Input.jsx';
 import Button from '../../components/Button/Button.jsx';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner.jsx';
@@ -10,25 +10,41 @@ import {
 } from '../../firebase/products.js';
 import { uploadProductImage } from '../../firebase/storage.js';
 import { CATEGORY_OPTIONS } from '../../utils/categories.js';
+import {
+  ADMIN_PRODUCT_TYPES,
+  productTypeLabel,
+  LAUNCH_STATUS_OPTIONS,
+  LAUNCH_STATUS,
+  DEFAULT_PRODUCT_TYPE,
+} from '../../utils/productTypes.js';
 import './Admin.css';
 
 const DEFAULT_SIZES = ['S', 'M', 'L', 'XL'];
 
-const emptyForm = {
+const buildEmptyForm = (productType = DEFAULT_PRODUCT_TYPE) => ({
   name: '',
   description: '',
   category: CATEGORY_OPTIONS[0].value,
+  productType,
+  launchStatus: LAUNCH_STATUS.AVAILABLE,
   price: 0,
   image: '',
   featured: false,
   active: true,
-};
+});
 
 export default function ProductForm() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const [form, setForm] = useState(emptyForm);
+  // Preselect the product type when arriving from a specific admin tab.
+  const presetType = searchParams.get('type');
+  const initialType = ADMIN_PRODUCT_TYPES.includes(presetType)
+    ? presetType
+    : DEFAULT_PRODUCT_TYPE;
+
+  const [form, setForm] = useState(() => buildEmptyForm(initialType));
   // Per-size editor state: { S: { enabled, stock }, ... }
   const [sizeRows, setSizeRows] = useState(
     DEFAULT_SIZES.reduce((acc, s) => ({ ...acc, [s]: { enabled: true, stock: 0 } }), {})
@@ -52,6 +68,8 @@ export default function ProductForm() {
           name: p.name || '',
           description: p.description || '',
           category: p.category || CATEGORY_OPTIONS[0].value,
+          productType: p.productType || DEFAULT_PRODUCT_TYPE,
+          launchStatus: p.launchStatus || LAUNCH_STATUS.AVAILABLE,
           price: p.price || 0,
           image: p.image || '',
           featured: !!p.featured,
@@ -120,6 +138,8 @@ export default function ProductForm() {
       name: form.name.trim(),
       description: form.description.trim(),
       category: form.category,
+      productType: form.productType,
+      launchStatus: form.launchStatus,
       price: Number(form.price),
       image: form.image.trim(),
       featured: !!form.featured,
@@ -166,6 +186,14 @@ export default function ProductForm() {
             <Input label="Nombre" name="name" value={form.name} onChange={onChange} required />
             <Input as="textarea" label="Descripción" name="description" value={form.description} onChange={onChange} />
             <label className="field">
+              <span className="field__label">Tipo de producto</span>
+              <select className="field__input" name="productType" value={form.productType} onChange={onChange}>
+                {ADMIN_PRODUCT_TYPES.map((t) => (
+                  <option key={t} value={t}>{productTypeLabel(t)}</option>
+                ))}
+              </select>
+            </label>
+            <label className="field">
               <span className="field__label">Categoría</span>
               <select className="field__input" name="category" value={form.category} onChange={onChange}>
                 {CATEGORY_OPTIONS.map((c) => (
@@ -173,7 +201,16 @@ export default function ProductForm() {
                 ))}
               </select>
             </label>
+            <label className="field">
+              <span className="field__label">Estado de lanzamiento</span>
+              <select className="field__input" name="launchStatus" value={form.launchStatus} onChange={onChange}>
+                {LAUNCH_STATUS_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+            </label>
             <Input label="Precio (ARS)" name="price" type="number" value={form.price} onChange={onChange} required />
+
 
             <div className="admin__sizes">
               <span className="field__label">Talles y stock</span>

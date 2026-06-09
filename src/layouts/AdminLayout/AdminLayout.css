@@ -67,7 +67,7 @@
     display: block;
     position: fixed;
     inset: 0;
-    background: rgba(40, 30, 24, 0.4);
+    background: var(--color-backdrop);
     z-index: 55;
   }
   .admin-layout__content {

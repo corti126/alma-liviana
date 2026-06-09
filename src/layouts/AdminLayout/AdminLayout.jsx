@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 import Sidebar from '../../components/Sidebar/Sidebar.jsx';
+import ThemeToggle from '../../components/ThemeToggle/ThemeToggle.jsx';
 import './AdminLayout.css';
 
 export default function AdminLayout() {
@@ -25,6 +26,7 @@ export default function AdminLayout() {
         <Link to="/products" className="admin-topbar__store" onClick={close}>
           Volver a la tienda
         </Link>
+        <ThemeToggle />
       </header>
 
       {/* Drawer backdrop on mobile */}

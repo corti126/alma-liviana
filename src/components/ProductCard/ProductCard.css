@@ -36,6 +36,58 @@
   border-radius: var(--radius-pill);
 }
 
+/* Coming soon — elegant, intentional treatment */
+.product-card__soon-tag {
+  position: absolute;
+  top: var(--space-3); left: var(--space-3);
+  background: var(--color-gold);
+  color: var(--color-on-accent);
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: var(--radius-pill);
+  z-index: 2;
+}
+.product-card.is-locked { cursor: default; }
+.product-card.is-locked:hover {
+  transform: none;
+  box-shadow: none;
+}
+.product-card.is-locked .product-card__media img {
+  filter: grayscale(0.25) saturate(0.85);
+  transform: none;
+}
+.product-card__veil {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--color-bg) 30%, transparent) 0%,
+    color-mix(in srgb, var(--color-bg) 78%, transparent) 100%
+  );
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+.product-card__veil-title {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  color: var(--color-text-strong);
+  letter-spacing: 0.04em;
+}
+.product-card__veil-sub {
+  font-size: 0.66rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
 .product-card__body {
   padding: var(--space-4) var(--space-5) var(--space-5);
   display: flex;
@@ -49,4 +101,8 @@
 .product-card__price {
   color: var(--color-text-soft);
   font-size: 0.95rem;
+}
+.product-card__price--soon {
+  color: var(--color-gold);
+  font-style: italic;
 }

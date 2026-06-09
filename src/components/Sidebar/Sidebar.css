@@ -20,7 +20,7 @@
   width: 40px; height: 40px;
   border-radius: 50%;
   background: var(--color-gold);
-  color: #fff;
+  color: var(--color-on-accent);
   font-family: var(--font-serif);
   display: grid; place-items: center;
 }
@@ -73,6 +73,7 @@
   transition: all var(--t-fast);
 }
 .sidebar__store-link:hover { background: var(--color-bg-alt); color: var(--color-gold); }
+.sidebar__theme { margin-top: var(--space-3); }
 
 .sidebar__footer { border-top: 1px solid var(--color-border-soft); padding-top: var(--space-4); }
 .sidebar__user { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3); }
@@ -80,7 +81,7 @@
   width: 36px; height: 36px;
   border-radius: 50%;
   background: var(--color-mauve);
-  color: #fff;
+  color: var(--color-on-accent);
   display: grid; place-items: center;
   font-weight: 500;
 }

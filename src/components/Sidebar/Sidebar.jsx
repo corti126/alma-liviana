@@ -1,5 +1,6 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext.jsx';
+import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
 import './Sidebar.css';
 
 const links = [
@@ -58,6 +59,7 @@ export default function Sidebar({ onNavigate }) {
         <Link to="/products" onClick={onNavigate} className="sidebar__store-link">
           <span aria-hidden="true">←</span> Volver a la tienda
         </Link>
+        <ThemeToggle variant="full" className="sidebar__theme" />
       </div>
 
       <div className="sidebar__footer">

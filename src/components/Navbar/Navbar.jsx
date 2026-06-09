@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext.jsx';
 import { useAuth } from '../../context/AuthContext.jsx';
+import ThemeToggle from '../ThemeToggle/ThemeToggle.jsx';
 import './Navbar.css';
 
 export default function Navbar() {
@@ -51,6 +52,7 @@ export default function Navbar() {
         </nav>
 
         <div className="navbar__actions">
+          <ThemeToggle />
           {user ? (
             <div className="navbar__account" ref={menuRef}>
               <button

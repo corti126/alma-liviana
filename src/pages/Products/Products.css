@@ -1,12 +1,45 @@
 .products-page { padding: var(--space-8) 0 var(--space-9); }
+
+/* Product type navigation */
+.products-page__types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: var(--space-5) 0 var(--space-6);
+}
+.type-tab {
+  padding: 0.55rem 1.3rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all var(--t-fast) var(--ease);
+}
+.type-tab:hover { border-color: var(--color-gold); color: var(--color-gold); }
+.type-tab.is-active {
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: var(--color-on-accent);
+}
+
 .products-page__toolbar {
   display: grid;
   gap: var(--space-4);
   margin-bottom: var(--space-7);
+}
+.products-page__filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  justify-content: flex-start;
 }
 @media (min-width: 768px) {
   .products-page__toolbar {
     grid-template-columns: 320px 1fr;
     align-items: center;
   }
+  .products-page__filters { justify-content: flex-end; }
 }

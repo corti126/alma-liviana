@@ -36,6 +36,8 @@
   border-radius: var(--radius-lg);
 }
 
+/* On mobile the table collapses into stacked cards. Each cell shows its
+   column label via the data-label attribute. */
 @media (max-width: 768px) {
   .admin-table-wrap {
     background: transparent;
@@ -79,6 +81,7 @@
     text-align: left;
     flex-shrink: 0;
   }
+  /* Hide the empty label for cells without a header (e.g. actions). */
   .admin-table td[data-label='']::before { content: none; }
   .admin-table td[data-label=''] { justify-content: flex-end; }
 }

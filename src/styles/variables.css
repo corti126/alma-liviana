@@ -17,6 +17,21 @@
   --color-border: #ECE0D4;
   --color-border-soft: #F2E8DE;
 
+  /* On-accent text (text placed over the gold accent) */
+  --color-on-accent: #FFFFFF;
+
+  /* Translucent surfaces */
+  --color-navbar-bg: rgba(250, 248, 246, 0.85);
+  --color-backdrop: rgba(40, 30, 24, 0.4);
+
+  /* Status badges (admin) */
+  --status-success-bg: #e7f0e7;
+  --status-success-fg: #4a7a4a;
+  --status-warn-bg: #F4ECE5;
+  --status-warn-fg: #b07a3c;
+  --status-info-bg: #e8e3f0;
+  --status-info-fg: #6a5a8a;
+
   /* Typography */
   --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -52,4 +67,64 @@
   --t-fast: 160ms;
   --t-base: 280ms;
   --t-slow: 480ms;
+}
+
+/* ============================================================
+   DARK MODE — Alma Liviana
+   A warm, boutique dark palette. No pure black: surfaces are
+   built from warm charcoal, dark taupe and deep mocha, with the
+   brand gold kept as the accent so the identity stays intact.
+   Activated via <html data-theme="dark"> by ThemeContext.
+   ============================================================ */
+:root[data-theme='dark'] {
+  /* Brand accents stay warm and feminine */
+  --color-gold: #E2B488;
+  --color-gold-soft: #C99A6E;
+
+  /* Soft surfaces (used for chips, tips, media backgrounds) */
+  --color-cream: #322A26;
+  /* deep mocha */
+  --color-beige: #3B312B;
+  /* dark taupe */
+  --color-mauve: #8E7480;
+  /* muted mauve */
+
+  /* Base surfaces */
+  --color-bg: #1E1916;
+  /* warm charcoal */
+  --color-bg-alt: #191411;
+  /* deeper charcoal */
+  --color-surface: #271F1B;
+  /* dark taupe card */
+
+  /* Text */
+  --color-text: #D8C7BB;
+  --color-text-soft: #A8948A;
+  --color-text-strong: #F4ECE5;
+
+  /* Borders */
+  --color-border: #3D332D;
+  --color-border-soft: #352B26;
+
+  /* On-accent text reads well on the warm gold in dark too */
+  --color-on-accent: #2A201A;
+
+  /* Translucent surfaces */
+  --color-navbar-bg: rgba(30, 25, 22, 0.82);
+  --color-backdrop: rgba(0, 0, 0, 0.55);
+
+  /* Status badges tuned for dark contrast */
+  --status-success-bg: #25332a;
+  --status-success-fg: #9cc7a4;
+  --status-warn-bg: #3a2f22;
+  --status-warn-fg: #e2b488;
+  --status-info-bg: #2e2838;
+  --status-info-fg: #b9a9d6;
+
+  /* Deeper, softer shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
+
+  color-scheme: dark;
 }

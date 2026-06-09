@@ -7,13 +7,17 @@ import Button from '../../components/Button/Button.jsx';
 import EmptyState from '../../components/EmptyState/EmptyState.jsx';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner.jsx';
 import { useCart } from '../../context/CartContext.jsx';
+import { useAuth } from '../../context/AuthContext.jsx';
 import { formatPrice } from '../../utils/format.js';
 import { categoryLabel } from '../../utils/categories.js';
+import { isComingSoon, productTypeSingular, productTypeOf } from '../../utils/productTypes.js';
 import './ProductDetail.css';
 
 export default function ProductDetail() {
   const { id } = useParams();
   const { addItem } = useCart();
+  const { hasRole } = useAuth();
+  const isAdmin = hasRole(['admin', 'owner']);
 
   const [product, setProduct] = useState(null);
   const [related, setRelated] = useState([]);
@@ -72,6 +76,47 @@ export default function ProductDetail() {
       </div>
     );
   }
+
+  // Coming soon pieces are visible to customers as a premium preview but cannot
+  // be opened or purchased. Admins keep full access to prepare inventory.
+  if (isComingSoon(product) && !isAdmin) {
+    return (
+      <div className="pdp">
+        <div className="container">
+          <nav className="pdp__crumbs">
+            <Link to="/">Inicio</Link>
+            <span>/</span>
+            <Link to="/products">Tienda</Link>
+            <span>/</span>
+            <span>{product.name}</span>
+          </nav>
+          <div className="pdp__soon">
+            <div className="pdp__soon-media">
+              <img src={product.image} alt={product.name} />
+              <div className="pdp__soon-veil">
+                <span className="pdp__soon-kicker">{productTypeSingular(productTypeOf(product))}</span>
+                <span className="pdp__soon-title">Próximamente</span>
+                <span className="pdp__soon-sub">Coming Soon</span>
+              </div>
+            </div>
+            <div className="pdp__soon-copy">
+              <span className="eyebrow">Lanzamiento próximo</span>
+              <h1 className="pdp__title">{product.name}</h1>
+              <p className="pdp__desc">
+                Estamos preparando esta pieza con calma. Muy pronto formará parte de la
+                colección Alma Liviana.
+              </p>
+              <Link to="/products">
+                <Button variant="primary" size="lg">Volver a la tienda</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+
 
   const sizes = product.sizes || [];
   const sizesStock = product.sizesStock || {};
